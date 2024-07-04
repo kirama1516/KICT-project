@@ -1,0 +1,229 @@
+header{
+    background-color:black;
+    color: white;
+    text-align: center; 
+    padding: 5px;
+    margin-top: -20px;
+}
+i{
+    color:  white;
+    font-weight: 600;
+}
+.glass{
+    height: 90%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 32px;
+    width: 98%;
+    margin-left: 5px;
+    overflow: hidden;
+}
+footer{
+    background-color:  black;
+    color: white;
+    clear: both;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: -10px;
+    border: 2px solid white;
+}
+body{
+    /* background-image: url('./myimage/pin.jpg'); */
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    position: relative;
+}
+p{
+    width: 350px;
+    height: 50px;
+    float: left;
+    padding: 10px;
+    margin: 15px;
+    color: white;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+h1{
+    margin: 10px 10px 10px 10px;
+    padding: 10px 20% 10px 10px;
+    text-shadow: 8px 6px rgb(187, 171, 171);
+}
+h2{
+    text-align: center; 
+    font-family: Verdana, 
+    Geneva, Tahoma, sans-serif;
+    font-size: 200%;
+    margin: 10px 10px 10px 10px;
+    padding: 10px 30% 10px 10px;
+    text-shadow: 4px 2px rgb(76, 75, 75);
+}
+h3{
+    font-family: Verdana,
+    Geneva, Tahoma, sans-serif;
+    font-size: 2.3em;
+    color:  green;
+    padding: 20px;
+    margin-bottom: -10px;
+   font-weight: 800;
+}
+/* h5{
+    text-align: center;
+    color:  green;
+    padding: 20px;
+    
+} */
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+th{
+    background-color:  black;
+    padding: 10px 10% 10px 10px;
+    margin: 10px  10% 10px 10px;
+    color: white;
+    text-decoration: underline;
+} 
+tr:nth-child(even){
+    background-color: rgba(162, 173, 185, 0.622);
+    padding: 8px;
+}
+mark{
+    background-color:  black;
+    padding: 20px 25px 20px 20px;
+    color: white;
+    text-shadow: 4px 2px black;
+    box-shadow: 8px 8px rgba(0, 0, 0, 0.864);
+    font-weight: 600;
+    font-size: 1em;
+    border-radius: 5px 50px 50px 5px;
+    margin-top: -20px;
+}
+address{
+    text-align: center;
+    color: white;
+    font-weight: 600;
+}
+b{
+    font-family: Verdana, 
+    Geneva, Tahoma, sans-serif;
+    font-size: 300%; 
+}
+img{
+    padding-left: 10%;
+}
+.gender input{
+    cursor: pointer;
+    display: inline;
+    justify-content: space-between;
+}
+/* #files{
+    border: 1px dashed #162938;
+    border-radius: 10px;
+    width: 20px;
+    height: 30px;
+    cursor: pointer;
+}
+#imageInput{
+    display: none;
+} */
+.rcorners1{
+    background-color:  transparent;
+    font-size: 1.2em;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px ;
+    width: 25%;
+    height: 45px;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600; 
+    float: left;
+    margin-left: 30px;
+    border: 2px solid white;
+    margin-top: 20px;
+}
+.rcorners2{
+    background-color:  transparent;
+    font-size: 1.2em;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px ;
+    width: 25%;
+    height: 45px;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600; 
+    float: right;
+    margin-right: 30px;
+    border: 2px solid white;
+    margin-top: 20px;
+}
+a{
+    text-decoration: none;
+}
+.rcorners1:hover{
+    background-color: white;
+    transition: .5s;
+    color: black;
+    border: none;
+    box-shadow: 5px 5px 5px 5px black;
+}
+.rcorners2:hover{
+    background-color: white;
+    transition: .5s;
+    color: black;
+    border: none;
+    box-shadow: 5px 5px 5px 5px black;
+}
+input{
+    border-radius: 10px;
+    padding: 8px;
+    margin: 8px;  
+    outline: none;
+    font-weight: 500;
+    color: black;
+}
+textarea{
+    border-radius: 10px;
+    padding: 8px;
+    margin: 10px;
+    width: 90%;
+    outline: none;
+    font-weight: 600;
+    color: black;
+    font-size: 15px;
+}
+/* .section{
+    width: 40%;
+    height: 60%;
+    font-weight: 600;
+    color: black;
+    font-size: 15px;
+} */
+.tables{
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+    margin-top: 40px;
+    box-shadow: 5px 5px 5px 5px black;
+}
+.tables input {
+    color: black;
+    cursor: pointer;
+}
+    /*
+    bootstarp:
+    git clone https://github.com/twbs/bootstrap.git
+    composer require twbs/bootstrap
+    */
