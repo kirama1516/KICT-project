@@ -18,6 +18,7 @@ include "./db/config.php";
             $row = mysqli_fetch_assoc($result);
             if($num > 0){
                 echo "<script> alert('Success! You are successfully logged in.'); </script>";
+                session_start();
                 $_SESSION['Username'] = $username;
                 header('location:home.php');
             }else{
@@ -58,6 +59,7 @@ include "./db/config.php";
                 $result = mysqli_query($conn,$sql);
                 if ($result === TRUE){
                         echo "<script> alert('Success! You are successfully signed up'); </script>";
+                     session_start();
                         $_SESSION['Username'] = $username;
                     header('location:home.php');
                     }else{

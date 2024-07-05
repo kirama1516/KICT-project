@@ -40,6 +40,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $result = mysqli_query($conn,$sql);
                 if ($result === TRUE){
                         echo "<script> alert('Success! You are successfully registered'); </script>";
+                        session_start();
                             $_SESSION['fullname'] = $fullname;
                     header('location:dashboard.php');
                     }else{
@@ -53,6 +54,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if(!isset($_SESSION['Username'])){
             header('location:index.php');
         }
+        session_start();
         $username = $_SESSION['Username'];
 
         $sql = "SELECT * FROM `sign_database` WHERE Username = '$username'";
