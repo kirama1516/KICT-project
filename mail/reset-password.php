@@ -1,5 +1,7 @@
 <?php
 
+include './db/config.php';
+
 $token = $_GET["token"];
 
 $token_hash = hash("sha256", $token);
