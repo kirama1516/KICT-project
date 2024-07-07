@@ -6,7 +6,7 @@ $token = $_POST["token"];
 
 $token_hash = hash("sha256", $token);
 
-$mysqli = include "./db/config.php";
+$mysqli = include './db/config.php';
 
 $sql = "SELECT * FROM `sign_database` WHERE Rest_token_hash = ?";
 
