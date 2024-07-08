@@ -181,7 +181,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div>
             <div id="form" class="tabcontent">
-                <form action="home.php" method="post" enctype="multipart/form-data">
+                <form action="dashboard.php" method="post" enctype="multipart/form-data">
                     <i>
                         <address>
                             No. 23 Albarka Plaza,Justice Dahiru Mustapha Avenue Farm Center Kano.<br>

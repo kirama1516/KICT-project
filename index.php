@@ -105,7 +105,7 @@ include "./db/config.php";
                 <span class="icon-close"><ion-icon name="close">✖</ion-icon></span>
             </a><br> -->
             <b>LOGIN</b>
-            <form action="index.php" method="post">
+            <form action="home.php" method="post">
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="username">🧑🏻</ion-icon>
@@ -154,7 +154,7 @@ include "./db/config.php";
 
         <div class="form-box register">
             <b>Register</b>
-            <form action="index.php" method="post" enctype="multipart/form-data">
+            <form action="home.php" method="post" enctype="multipart/form-data">
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="email">🧑🏻</ion-icon>

@@ -11,7 +11,7 @@ $token_hash = hash("sha256", $token);
  
 $expires = date("Y-m-d H:i:s", time() + 3600);
 
-$mysqli = include './db/config.php';
+$mysqli = include __DIR__. './db/config.php';
 
 $sql = "UPDATE `sign_database` 
     SET Reset_token_hash = ?, 
