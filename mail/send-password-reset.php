@@ -30,7 +30,7 @@ mysqli_stmt_close($stmt);
 
     if ($conn->affected_rows) {
 
-        $mail = include './mail/mailer.php';
+        $mail = include __DIR__. './mail/mailer.php';
 
         $mail->setFrom("noreply@example.com");
         $mail->addAddress($email);
