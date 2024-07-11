@@ -1,7 +1,7 @@
 <?php
 
-include './db/config.php';
-include './mail/mailer.php';
+// include './db/config.php';
+// include './mail/mailer.php';
 
 $email = $_POST["email"];
 
