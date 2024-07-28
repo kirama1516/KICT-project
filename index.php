@@ -1,76 +1,128 @@
 <?php
+
 include "./db/config.php";
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    if(isset($_POST['login'])){
+    if (isset($_POST['login'])) {
 
         $username = $_POST['username'];
-        
+
         $password = $_POST['password'];
 
-        $sql =  "SELECT * FROM `sign_database` WHERE Username = '$username' AND Password = '$password'";
+        if (empty($username) || empty($password)) {
+            header("Location: index.php?error=emptyfields");
+            exit();
+        } else {
+            $sql =  "SELECT * FROM `sign_database` WHERE Username = ? OR Email = ?;";
+            $stmt = mysqli_stmt_init($conn);
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                header("Location: index.php?error=sqlerror");
+                exit();
+            } else {
 
-        $result = mysqli_query($conn,$sql);
-       
-        if($result){
-            $num = mysqli_num_rows($result);
-            $row = mysqli_fetch_assoc($result);
-            if($num > 0){
-                echo "<script> alert('Success! You are successfully logged in.'); </script>";
-                session_start();
-                $_SESSION['Username'] = $username;
-                header('location:home.php');
-            }else{
-            echo "<script> alert('Error! Invalid data'); </script>";
-        }
-    }
-}
-    if(isset($_POST['signin'])){
+                mysqli_stmt_bind_param($stmt, "ss", $username, $username);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_get_result($stmt);
 
-        $email = $_POST['email'];
-        
-        $username = $_POST['username'];
-        
-        $photo = 'upload/'.$_FILES['image']['name'];
-        
-        $password = $_POST['password'];
-        
-        $confirmpassword = $_POST['confirmpassword'];
+                $result = mysqli_stmt_get_result($stmt);
+                if ($row = mysqli_fetch_assoc($result)) {
 
-        $sql = "SELECT * FROM `sign_database` WHERE Username = '$username' OR Email = '$email'";
-        $result = mysqli_query($conn,$sql);
-        if($result){
-            $num = mysqli_num_rows($result);
-            if($num>0){
-            echo "<script> alert('Ohh no Sorry! Username or Email has already existed'); </script>";
-            }else{
-                if($password === $confirmpassword){
-                    if(preg_match("!image!", $_FILES['image']['type'])){
-                        if(copy($_FILES['image']['tmp_name'], $photo)){
-                        
-                        }else{
-                            echo "<script> alert('Sorry! File uploaded failed!'); </script>";
-                        }
-                    }else{
-                        echo "<script> alert('Opps! Please upload only JPG, PNG or GIF image!'); </script>";
+                    $pwdCheck = password_verify($password, $row['Password']);
+
+                    if ($pwdCheck == false) {
+                        header("Location: index.php?error=wrongPassword");
+                        exit();
+                    } else if ($pwdCheck == true) {
+
+                        session_start();
+                        $_SESSION['userId'] = $row['Id'];
+                        $_SESSION['userName'] = $row['Username'];
+
+                        header("Location: home.php?login=success");
+                        exit();
+                    } else {
+                        header("Location: index.php?error=wrongPassword");
+                        exit();
                     }
-                $sql = "INSERT INTO `sign_database` (Email, Username, Photo, Password) VALUES ('$email','$username','$photo','$password')"; 
-                $result = mysqli_query($conn,$sql);
-                if ($result === TRUE){
-                        echo "<script> alert('Success! You are successfully signed up'); </script>";
-                     session_start();
-                        $_SESSION['Username'] = $username;
-                    header('location:home.php');
-                    }else{
-                        echo "<script> alert('Sorry! User could not be added!'); </script>";
-                    }
-                }else{
-                    echo "<script> alert('Incorrect! Password does not match'); </script>";
+                } else {
+                    header("Location: index.php?error=noUser");
+                    exit();
                 }
             }
         }
-    }  
+    } else {
+        header("Location: index.php?error=bazaebah");
+        exit();
+    }
+
+    if (isset($_POST['signin'])) {
+
+        $email = $_POST['email'];
+
+        $username = $_POST['username'];
+
+        $photo = 'upload/' . $_FILES['image']['name'];
+
+        $password = $_POST['password'];
+
+        $confirmpassword = $_POST['confirmpassword'];
+
+        if (empty($username) || empty($email) || empty($photo) || empty($password) || empty($confirmpassword)) {
+            header("Location: index.php?error=emptyfields&username=" . $username . "&email=" . $email);
+            exit();
+        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+            header("Location: index.php?error=invalidEmailUsername");
+            exit();
+        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header("Location: index.php?error=invalidEmail&username=" . $username);
+            exit();
+        } else if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+            header("Location: index.php?error=invalidUsername&email=" . $email);
+            exit();
+        } else if ($password !== $confirmpassword) {
+            header("Location: index.php?error=passwordCheck&username=" . $username . "&email=" . $email);
+            exit();
+        } else {
+
+            $sql = "SELECT Username FROM `sign_database` WHERE Username = ?";
+            $stmt = mysqli_stmt_init($conn);
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                header("Location: index.php?error=sqlerror");
+                exit();
+            } else {
+                mysqli_stmt_bind_param($stmt, "s", $username);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_store_result($stmt);
+                $resultCheck = mysqli_stmt_num_rows($stmt);
+                if ($resultCheck > 0) {
+                    header("Location: index.php?error=usertaken&email=" . $email);
+                    exit();
+                } else {
+
+                    $sql = "INSERT INTO `sign_database` (Email, Username, Photo, Password) VALUES (?, ?, ?, ?)";
+                    $stmt = mysqli_stmt_init($conn);
+                    if (!mysqli_stmt_prepare($stmt, $sql)) {
+                        $_SESSION['Username'] = $username;
+                        header("Location: index.php?error=sqlerror");
+                        exit();
+                    } else {
+                        $hashPwd = password_hash($password, PASSWORD_DEFAULT);
+
+                        mysqli_stmt_bind_param($stmt, "ssss", $email, $username, $photo, $hashPwd);
+                        mysqli_stmt_execute($stmt);
+                        header("Location: index.php?signin=success");
+                        exit();
+                    }
+                }
+            }
+        }
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+    } else {
+        header("Location: index.php");
+        exit();
+    }
 }
 
 ?>
@@ -105,20 +157,16 @@ include "./db/config.php";
                 <span class="icon-close"><ion-icon name="close">✖</ion-icon></span>
             </a><br> -->
             <b>LOGIN</b>
-            <form action="home.php" method="post">
+            <form action="index.php" method="post">
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="username">🧑🏻</ion-icon>
                     </span>
-                    <input type="text" name="username" required>
-                    <label>Username</label>
+                    <input type="text" name="username" id="username">
+                    <label>Username/Email</label>
                 </div>
                 <div class="input-box">
-                    <span class="icon">
-                        <img src="assets/images/avatars/password-hide-icon.png" alt="" class="password-icon"
-                            id="password-icon" onchange="change()">
-                    </span>
-                    <input type="password" name="password" id="password" required>
+                    <input type="password" name="password" id="password">
                     <label>Password</label>
                 </div>
                 <br>
@@ -136,12 +184,12 @@ include "./db/config.php";
                     <span class="buttons">
                         <div class="logo">
                             <?php
-                                    if (isset($_SESSION['user_token'])) {
-                                        header("Location: google-dashboard.php");
-                                    } else {
-                                    echo "<a href='".$client->createAuthUrl()."'>continue with Google</a>";
-                                    }
-                                ?>
+                            if (isset($_SESSION['user_token'])) {
+                                header("Location: google-dashboard.php");
+                            } else {
+                                echo "<a href='" . $client->createAuthUrl() . "'>continue with Google</a>";
+                            }
+                            ?>
                         </div>
                     </span>
                 </div>
@@ -154,33 +202,33 @@ include "./db/config.php";
 
         <div class="form-box register">
             <b>Register</b>
-            <form action="home.php" method="post" enctype="multipart/form-data">
+            <form action="index.php" method="post" enctype="multipart/form-data">
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="email">🧑🏻</ion-icon>
                     </span>
-                    <input type="text" name="email" required>
+                    <input type="text" name="email" id="email">
                     <label>email</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
-                        <ion-icon name="username">🧑🏻</ion-icon>
+                        <ion-icon name="username" id="username">🧑🏻</ion-icon>
                     </span>
-                    <input type="text" name="username" required>
+                    <input type="text" name="username">
                     <label>username</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="lock-closed">🔒</ion-icon>
                     </span>
-                    <input type="password" name="password" required>
+                    <input type="password" name="password" id="password">
                     <label>Password</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="lock-closed">🔒</ion-icon>
                     </span>
-                    <input type="password" name="confirmpassword" required>
+                    <input type="password" name="confirmpassword" id="confirmpassword">
                     <label>Confirm password</label>
                 </div>
                 <div class="input-image">
