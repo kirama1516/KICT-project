@@ -70,8 +70,14 @@
 
 include "./db/config.php";
 
+session_start();
+if(isset($_SESSION['userId'])){
+    echo "<script> alert('Success! You are logged in '); </script>";
+}
+else {
+    header('location:index.php?succcessss');
+}
 
-// session_start();
 // $_SESSION['userId'] = $row['Id'];
 // $_SESSION['userName'] = $row['Username'];
 
@@ -84,13 +90,6 @@ $photo = $row['Photo'];
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if(isset($_SESSION['userId'])){
-        echo "<script> alert('Success! You are logged in '); </script>";
-    }
-    else {
-        header('location:index.php?succcessss');
-    }
-    
     if(isset($_POST['Register'])){
 
         $fullname = $_POST['fullname'];
