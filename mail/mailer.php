@@ -8,7 +8,7 @@ include __DIR__ . "./assets/vendor/autoload.php";
 
     $mail = new PHPMailer(true); 
 
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
     // SMTP Configuration (adjust based on your email provider)
     $mail->isSMTP();

@@ -1,96 +1,29 @@
 <?php
-// for login
- // $sql =  "SELECT * FROM `sign_database` WHERE Username = '$username' AND Password = '$password'";
-
-    // $result = mysqli_query($conn, $sql);
-
-    // if ($result) {
-
-    //     $num = mysqli_num_rows($result);
-    //     $row = mysqli_fetch_assoc($result);
-
-    //     if ($num > 0) {
-
-    //         echo "<script> alert('Success! You are successfully logged in.'); </script>";
-
-    //         session_start();
-    //         $_SESSION['Username'] = $username;
-    //         header('location:home.php');
-    //     } else {
-    //         echo "<script> alert('Error! Invalid data'); </script>";
-    //     }
-    // }
-
-
-    // for sign in
-//         $sql = "SELECT * FROM `sign_database` WHERE Username = '$username' OR Email = '$email'";
-//         $result = mysqli_query($conn,$sql);
-//         if($result){
-
-//             $num = mysqli_num_rows($result);
-//             if($num>0){
-
-//             echo "<script> alert('Ohh no Sorry! Username or Email has already existed'); </script>";
-
-//             }else{
-//                 if($password === $confirmpassword){
-
-//                     if(preg_match("!image!", $_FILES['image']['type'])){
-
-//                         if(copy($_FILES['image']['tmp_name'], $photo)){
-
-//                         }else{
-//                             echo "<script> alert('Sorry! File uploaded failed!'); </script>";
-//                         }
-//                     }else{
-//                         echo "<script> alert('Opps! Please upload only JPG, PNG or GIF image!'); </script>";
-//                     }
-
-//                 $sql = "INSERT INTO `sign_database` (Email, Username, Photo, Password) VALUES ('$email','$username','$photo','$password')"; 
-//                 $result = mysqli_query($conn,$sql);
-
-//                 if ($result === TRUE){
-
-//                         echo "<script> alert('Success! You are successfully signed up'); </script>";
-
-//                       session_start();
-//                         $_SESSION['Username'] = $username;
-//                     header('location:home.php');
-
-//                     }else{
-//                         echo "<script> alert('Sorry! User could not be added!'); </script>";
-//                     }
-//                 }else{
-//                     echo "<script> alert('Incorrect! Password does not match'); </script>";
-//                 }
-//             }
-//         }
-//     }  
-// }
-
 include "./db/config.php";
 
-session_start();
 if(isset($_SESSION['userId'])){
-    echo "<script> alert('Success! You are logged in '); </script>";
-}
-else {
-    header('location:index.php?succcessss');
-}
+    $sql =  "SELECT * FROM `sign_database` WHERE Id = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: index.php?error=sqlerror");
+        exit();
+    } else {
+        mysqli_stmt_bind_param($stmt, "i", $_SESSION['userId']);
+        mysqli_stmt_execute($stmt);
 
-// $_SESSION['userId'] = $row['Id'];
-// $_SESSION['userName'] = $row['Username'];
-
-
-// $sql = "SELECT * FROM `sign_database` WHERE Username = '$username'";
-// $result = $conn->query($sql);
-// $row = $result->fetch_assoc();
-
-$photo = $row['Photo'];
+        $result = mysqli_stmt_get_result($stmt);
+        if ($row = mysqli_fetch_assoc($result)) {
+            $photo = $row['Photo'];
+         // echo "<script> alert('Success! You are logged in '); </script>";
+        }          
+    }
+}else {
+        header('location:index.php?error=InvalidData');
+    }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if(isset($_POST['Register'])){
+    if (isset($_POST['Register'])) {
 
         $fullname = $_POST['fullname'];
         $date = $_POST['date'];
@@ -114,29 +47,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $edu_details4 = $_POST['educationaldetails4'];
 
         $sql = "SELECT * FROM `users` WHERE Fullname = '$fullname'";
-        $result = mysqli_query($conn,$sql);
-        
-        if($result){
-            
-        $num = mysqli_num_rows($result);
-        
-             if($num>0){
-                
-             echo "<script> alert('Ohh no Sorry! Username or Email has already existed'); </script>";
-             
-             }else{
-            // var_dump($sql);
-                 $sql = "INSERT INTO `users` (Fullname, DOB, Nationality, State, LGA, Phonenumber, Address, Occupation, Placeofoccupation, Gender, Course1, Course2, Course3, Course4, Course5, Course6, Educationaldetails1, Educationaldetails2, Educationaldetails3, Educationaldetails4) VALUES ('$fullname', '$date', '$nationality', '$state', '$lga', '$phone', '$address', '$occupation', '$p_occupation', '$gender', '$course1', '$course2', '$course3', '$course4', '$course5', '$course6', '$edu_details1', '$edu_details2', '$edu_details3','$edu_details4')"; 
-                $result = mysqli_query($conn,$sql);
-                
-                if ($result === TRUE){
-                    
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+
+            $num = mysqli_num_rows($result);
+
+            if ($num > 0) {
+
+                echo "<script> alert('Ohh no Sorry! Username or Email has already existed'); </script>";
+            } else {
+                // var_dump($sql);
+                $sql = "INSERT INTO `users` (Fullname, DOB, Nationality, State, LGA, Phonenumber, Address, Occupation, Placeofoccupation, Gender, Course1, Course2, Course3, Course4, Course5, Course6, Educationaldetails1, Educationaldetails2, Educationaldetails3, Educationaldetails4) VALUES ('$fullname', '$date', '$nationality', '$state', '$lga', '$phone', '$address', '$occupation', '$p_occupation', '$gender', '$course1', '$course2', '$course3', '$course4', '$course5', '$course6', '$edu_details1', '$edu_details2', '$edu_details3','$edu_details4')";
+                $result = mysqli_query($conn, $sql);
+
+                if ($result === TRUE) {
+
                     echo "<script> alert('Success! You are successfully registered'); </script>";
-                        session_start();
-                        $_SESSION['fullname'] = $fullname;
-                        header('location:dashboard.php');
-                    
-                }else{
+                    session_start();
+                    $_SESSION['fullname'] = $fullname;
+                    header('location:dashboard.php');
+                } else {
                     echo "<script> alert('Sorry! User could not be added!'); </script>";
                 }
             }
@@ -144,8 +75,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-     
-        
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -166,7 +97,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         </h1>
 
         <div class=" chip">
-            <?php echo '<img src="' . $photo . '" alt="No image file uploaded" width="96" height="96">';?>
+            <?php echo '<img src="' . $photo . '" alt="No image file uploaded" width="96" height="96">'; ?>
         </div>
 
         <!-- Use any element to open the sidenav -->

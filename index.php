@@ -6,24 +6,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['login'])) {
 
-        $username = $_POST['username'];
+        $usermail = $_POST['usermail'];
 
         $password = $_POST['password'];
 
-        if (empty($username) || empty($password)) {
+        if (empty($usermail) || empty($password)) {
             header("Location: index.php?error=emptyfields");
             exit();
         } else {
-            $sql =  "SELECT * FROM `sign_database` WHERE Username = ? OR Email = ?;";
+            $sql =  "SELECT * FROM `sign_database` WHERE Username = ? OR Email = ?";
             $stmt = mysqli_stmt_init($conn);
             if (!mysqli_stmt_prepare($stmt, $sql)) {
                 header("Location: index.php?error=sqlerror");
                 exit();
             } else {
 
-                mysqli_stmt_bind_param($stmt, "ss", $username, $username);
+                mysqli_stmt_bind_param($stmt, "ss", $usermail, $usermail);
                 mysqli_stmt_execute($stmt);
-                mysqli_stmt_get_result($stmt);
+                // mysqli_stmt_get_result($stmt);
 
                 $result = mysqli_stmt_get_result($stmt);
                 if ($row = mysqli_fetch_assoc($result)) {
@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         exit();
                     } else if ($pwdCheck == true) {
 
-                        session_start();
                         $_SESSION['userId'] = $row['Id'];
                         $_SESSION['userName'] = $row['Username'];
 
@@ -51,12 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
         }
-    } else {
-        header("Location: index.php?error=bazaebah");
-        exit();
-    }
-
-    if (isset($_POST['signin'])) {
+    } else if (isset($_POST['signin'])) {
 
         $email = $_POST['email'];
 
@@ -120,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_close($stmt);
         mysqli_close($conn);
     } else {
-        header("Location: index.php");
+        header("Location: index.php?error=InvalidRequest");
         exit();
     }
 }
@@ -162,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <span class="icon">
                         <ion-icon name="username">🧑🏻</ion-icon>
                     </span>
-                    <input type="text" name="username" id="username">
+                    <input type="text" name="usermail" id="usermail">
                     <label>Username/Email</label>
                 </div>
                 <div class="input-box">
