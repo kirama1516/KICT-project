@@ -17,7 +17,7 @@ session_start();
     // ]);
 
      // Include the Composer autoloader
-require './assets/vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use GuzzleHttp\Client;
 

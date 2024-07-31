@@ -1,6 +1,6 @@
 <?php
 
-// include './db/config.php';
+include './db/config.php';
 
 $token = $_GET["token"];
 

@@ -1,7 +1,7 @@
 <?php
 
 // Include the Google API client library
-require_once './assets/vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 // init config
 $clientID = '971308071057-qu8a0np2rlocrdl1l5k80pep4gilifte.apps.googleusercontent.com';

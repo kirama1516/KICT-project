@@ -1,28 +1,26 @@
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP; 
+use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-include __DIR__ . "./assets/vendor/autoload.php";
+include __DIR__ . "/vendor/autoload.php";
 
-    $mail = new PHPMailer(true); 
+$mail = new PHPMailer(true);
 
-    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
-    // SMTP Configuration (adjust based on your email provider)
-    $mail->isSMTP();
-    $mail->SMTPAuth = true;
-    $mail->Host = "smtp.gmail.com";
-    $mail->SMTPSecure = "ssl";
-    $mail->Port = 465;
-    $mail->Username = "abdullahifarukadam2001@gmail.com";
-    $mail->Password = "rdptmpsxfcdwsnwz";
+// SMTP Configuration (adjust based on your email provider)
+$mail->isSMTP();
+$mail->SMTPAuth = true;
+$mail->Host = "smtp.gmail.com";
+$mail->SMTPSecure = "ssl";
+$mail->Port = 465;
+$mail->Username = "abdullahifarukadam2001@gmail.com";
+$mail->Password = "rdptmpsxfcdwsnwz";
 
-    // Email content
-    $mail->isHTML(true);
-    $mail->CharSet = 'UTF-8';
+// Email content
+$mail->isHTML(true);
+$mail->CharSet = 'UTF-8';
 
-    return $mail;
-
-?>
+return $mail;
