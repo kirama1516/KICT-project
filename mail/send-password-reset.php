@@ -29,29 +29,29 @@ mysqli_stmt_execute($stmt);
 
 mysqli_stmt_close($stmt);
 
-// if ($conn->affected_rows) {
+if ($conn->affected_rows) {
 
-//     $mail = include __DIR__ . "/mail/mailer.php";
+    $mail = include __DIR__ . "/mail/mailer.php";
 
-//     $mail->setFrom("noreply@example.com");
-//     $mail->addAddress($email);
-//     $mail->Subject = "Password Reset";
-//     $mail->Body = <<<END
+    $mail->setFrom("noreply@example.com");
+    $mail->addAddress($email);
+    $mail->Subject = "Password Reset";
+    $mail->Body = <<<END
         
-//         Click <a href="http://localhost/myshop/mail/reset-password.php?token=$token">here</a>
-//         to reset your password.
+        Click <a href="http://localhost/myshop/mail/reset-password.php?token=$token">here</a>
+        to reset your password.
 
-//         END;
+        END;
 
-//     try {
+    try {
 
-//         $mail->send();
-//     } catch (Exception $e) {
+        $mail->send();
+    } catch (Exception $e) {
 
-//         echo "<script> alert('Message could not be sent. Mailer error: {$mail->ErrorInfo}'); </script>";
-//     }
-// }
+        echo "<script> alert('Message could not be sent. Mailer error: {$mail->ErrorInfo}'); </script>";
+    }
+}
 
-// echo "<script> alert('Message sent, Please check your inbox.'); </script>";
+echo "<script> alert('Message sent, Please check your inbox.'); </script>";
 
 ?>
