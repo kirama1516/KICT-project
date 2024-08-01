@@ -48,7 +48,7 @@ if (strtotime($user["Reset_token_expires_at"]) <= time()) {
 
     <h1>Reset Password</h1>
 
-    <form action="mail/process-password-reset.php" method="post">
+    <form action="index.php" method="post">
 
         <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
 

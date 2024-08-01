@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 include "./db/config.php";
 
 $token = $_POST["token"];
@@ -63,4 +63,4 @@ mysqli_stmt_execute($stmt);
 
 echo "<script> alert('Password update, You can now login.'); </script>";
 
-?>
+?> -->
