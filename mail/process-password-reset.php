@@ -1,12 +1,11 @@
 <?php
-
-include './db/config.php';
+include "./db/config.php";
 
 $token = $_POST["token"];
 
 $token_hash = hash("sha256", $token);
 
-$mysqli = include __DIR__. './db/config.php';
+// $mysqli = include __DIR__. './db/config.php';
 
 $sql = "SELECT * FROM `sign_database` WHERE Rest_token_hash = ?";
 

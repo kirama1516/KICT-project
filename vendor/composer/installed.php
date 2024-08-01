@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '3273e410e1e20a00c74ec5bbbd067cc2332c6b61',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '3273e410e1e20a00c74ec5bbbd067cc2332c6b61',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -47,9 +47,9 @@
             'dev_requirement' => false,
         ),
         'google/auth' => array(
-            'pretty_version' => 'v1.35.0',
-            'version' => '1.35.0.0',
-            'reference' => '6e9c9fd4e2bbd7042f50083076346e4a1eff4e4b',
+            'pretty_version' => 'v1.37.0',
+            'version' => '1.37.0.0',
+            'reference' => '5f16f67375b6f202b857183d7ef4e076acd7d4aa',
             'type' => 'library',
             'install_path' => __DIR__ . '/../google/auth',
             'aliases' => array(),
