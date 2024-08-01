@@ -5,8 +5,6 @@ $token = $_GET["token"];
 
 $token_hash = hash("sha256", $token);
 
-// $mysqli = include __DIR__. './db/config.php';
-
 $sql = "SELECT * FROM `sign_database` WHERE Reset_token_hash = ?";
 
 $stmt = mysqli_stmt_init($conn);
