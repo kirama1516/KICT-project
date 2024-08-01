@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql = "SELECT * FROM `sign_database` WHERE Rest_token_hash = ?";
 
     $stmt = mysqli_stmt_init($conn);
-        
+
     mysqli_stmt_prepare($stmt, $sql);
 
     mysqli_stmt_bind_param($stmt, "s", $token_hash,);
@@ -141,25 +141,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (strtotime($user["Reset_token_expires_at"]) <= time()) {
-        die("token has expired"); 
+        die("token has expired");
     }
-        
-        if (isset($_POST['send'])) {
 
-            $password = $_POST['password'];
+    if (isset($_POST['send'])) {
 
-            $confirmpassword = $_POST['confirmpassword'];
+        $password = $_POST['password'];
 
-        }
-        
+        $confirmpassword = $_POST['confirmpassword'];
+    }
+
     if ($password == $confirmpassword) {
 
         echo "<script> alert('Success! You are successfully signed up'); </script>";
-
-    } else{
+    } else {
 
         echo "<script> alert('Incorrect! Password does not match'); </script>";
-
     }
 
     $sql = "UPDATE `sign_database`
@@ -169,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             WHERE Id = ?";
 
     $stmt = mysqli_stmt_init($conn);
-        
+
     mysqli_stmt_prepare($stmt, $sql);
 
     mysqli_stmt_bind_param($stmt, "ss", $password, $user["Id"]);
@@ -177,7 +174,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     mysqli_stmt_execute($stmt);
 
     echo "<script> alert('Password update, You can now login.'); </script>";
-
 }
 
 ?>
@@ -215,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form action="index.php" method="post">
                 <div class="input-box">
                     <span class="icon">
-                        <ion-icon name="username">🧑🏻</ion-icon>
+                        <!-- <ion-icon name="username">🧑🏻</ion-icon> -->
                     </span>
                     <input type="text" name="usermail" id="usermail">
                     <label>Username/Email</label>
@@ -260,35 +256,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form action="index.php" method="post" enctype="multipart/form-data">
                 <div class="input-box">
                     <span class="icon">
-                        <ion-icon name="email">🧑🏻</ion-icon>
+                        <!-- <ion-icon name="email">🧑🏻</ion-icon> -->
                     </span>
                     <input type="text" name="email" id="email">
                     <label>email</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
-                        <ion-icon name="username" id="username">🧑🏻</ion-icon>
+                        <!-- <ion-icon name="username" id="username">🧑🏻</ion-icon> -->
                     </span>
                     <input type="text" name="username">
                     <label>username</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
-                        <ion-icon name="lock-closed">🔒</ion-icon>
+                        <!-- <ion-icon name="lock-closed">🔒</ion-icon> -->
                     </span>
                     <input type="password" name="password" id="password">
                     <label>Password</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
-                        <ion-icon name="lock-closed">🔒</ion-icon>
+                        <!-- <ion-icon name="lock-closed">🔒</ion-icon> -->
                     </span>
                     <input type="password" name="confirmpassword" id="confirmpassword">
                     <label>Confirm password</label>
                 </div>
                 <div class="input-image">
                     <span class="icon">
-                        <ion-icon name="image">🧑🏻</ion-icon>
+                        <!-- <ion-icon name="image">🧑🏻</ion-icon> -->
                     </span>
                     <input type="file" name="image" id="imageInput" accept="image/*">
                     <label for="file">Upload image</label>
