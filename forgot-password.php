@@ -34,7 +34,7 @@ if ($conn->affected_rows) {
     $mail->Subject = "Password Reset";
     $mail->Body = <<<END
         
-        Click <a href="http://localhost/myshop/reset-password.php?token=$token">here</a>
+        Click <a href="http://localhost/kict-project/reset-password.php?token=$token">here</a>
         to reset your password.
 
         END;

@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require '/var/www/html/myshop/vendor/autoload.php';
+require '/var/www/html/kict-project/vendor/autoload.php';
 
 $mail = new PHPMailer(true);
 
