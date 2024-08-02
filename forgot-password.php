@@ -1,8 +1,9 @@
 <?php
 
 include "./db/config.php";
-include './mail/mailer.php';
+include "./mail/mailer.php";
 
+if (isset($_POST['email'])) {
 $email = $_POST["email"];
 
 $token = bin2hex(random_bytes(16));
@@ -28,17 +29,29 @@ mysqli_stmt_close($stmt);
 
 if ($conn->affected_rows) {
 
-    $mail->setFrom("noreply@example.com");
+    $mail->setFrom("knowitict@gmail.com");
     $mail->addAddress($email);
     $mail->Subject = "Password Reset";
     $mail->Body = <<<END
         
-        Click <a href="http://localhost/myshop/mail/reset-password.php?token=$token">here</a>
+        Click <a href="http://localhost/myshop/reset-password.php?token=$token">here</a>
         to reset your password.
 
         END;
 
     try {
+
+           // Check if email is set
+        if (!isset($_POST['email']) || empty($_POST['email'])) {
+        throw new Exception('Email address is required');
+        }
+        
+        $email = $_POST['email'];
+        
+        // Validate email address
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new Exception('Invalid email address');
+        }
 
         $mail->send();
     } catch (Exception $e) {
@@ -48,6 +61,7 @@ if ($conn->affected_rows) {
 }
 
 echo "<script> alert('Message sent, Please check your inbox.'); </script>";
+}
 
 ?>
 

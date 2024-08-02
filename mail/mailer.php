@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-include __DIR__ . "/vendor/autoload.php";
+require '/var/www/html/myshop/vendor/autoload.php';
 
 $mail = new PHPMailer(true);
 
@@ -17,10 +17,12 @@ $mail->Host = "smtp.gmail.com";
 $mail->SMTPSecure = "ssl";
 $mail->Port = 465;
 $mail->Username = "abdullahifarukadam2001@gmail.com";
-$mail->Password = "rdptmpsxfcdwsnwz";
+$mail->Password = "gfqvwecbojffdhqh";
 
 // Email content
 $mail->isHTML(true);
 $mail->CharSet = 'UTF-8';
 
 return $mail;
+
+?>

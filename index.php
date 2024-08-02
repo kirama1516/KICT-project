@@ -117,6 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: index.php?error=InvalidRequest");
         exit();
     }
+    
+    if (isset($_POST['token'])) {
 
     $token = $_POST["token"];
 
@@ -159,21 +161,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script> alert('Incorrect! Password does not match'); </script>";
     }
 
-    $sql = "UPDATE `sign_database`
-            SET Password = ?,
-                Reset_token_hash = NULL,
-                Reset_token_expires_at = NULL
-            WHERE Id = ?";
+        $sql = "UPDATE `sign_database`
+                SET Password = ?,
+                    Reset_token_hash = NULL,
+                    Reset_token_expires_at = NULL
+                WHERE Id = ?";
 
-    $stmt = mysqli_stmt_init($conn);
+        $stmt = mysqli_stmt_init($conn);
 
-    mysqli_stmt_prepare($stmt, $sql);
+        mysqli_stmt_prepare($stmt, $sql);
 
-    mysqli_stmt_bind_param($stmt, "ss", $password, $user["Id"]);
+        mysqli_stmt_bind_param($stmt, "ss", $password, $user["Id"]);
 
-    mysqli_stmt_execute($stmt);
+        mysqli_stmt_execute($stmt);
 
-    echo "<script> alert('Password update, You can now login.'); </script>";
+        echo "<script> alert('Password update, You can now login.'); </script>";
+    }
 }
 
 ?>
