@@ -17,7 +17,7 @@ session_start();
     // ]);
 
      // Include the Composer autoloader
-require 'vendor/autoload.php';
+require '/var/www/html/kict-project/vendor/autoload.php';
 
 use GuzzleHttp\Client;
 
@@ -25,7 +25,7 @@ use GuzzleHttp\Client;
 $client = new Client();
 
 // Specify the URL you want to send the request to
-$url = 'http://localhost/myshop/google-dashboard.php';
+$url = 'http://localhost/kict-project/google-dashboard.php';
 
 try {
     // Send a GET request to the specified URL
