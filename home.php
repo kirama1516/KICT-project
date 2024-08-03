@@ -46,34 +46,56 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $edu_details3 = $_POST['educationaldetails3'];
         $edu_details4 = $_POST['educationaldetails4'];
 
-        $sql = "SELECT * FROM `users` WHERE Fullname = '$fullname'";
-        $result = mysqli_query($conn, $sql);
-
-        if ($result) {
-
-            $num = mysqli_num_rows($result);
-
-            if ($num > 0) {
-
-                echo "<script> alert('Ohh no Sorry! Username or Email has already existed'); </script>";
+        if (empty($fullname) || empty($date) || empty($nationality) || empty($state) || empty($lga) || empty($phone) || empty($address) || empty($gender)) {
+            header("Location: home.php?error=emptyfields&fullname=" . $fullname );
+            exit();
+        } else {
+            
+            $sql = "INSERT INTO `users` (Fullname, DOB, Nationality, State, LGA, Phonenumber, Address, Occupation, Placeofoccupation, Gender, Course1, Course2, Course3, Course4, Course5, Course6, Educationaldetails1, Educationaldetails2, Educationaldetails3, Educationaldetails4) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,)";
+            $stmt = mysqli_stmt_init($conn);
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                $_SESSION['Fullname'] = $fullname;
+                header("Location: home.php?error=sqlerror");
+                exit();
             } else {
-                // var_dump($sql);
-                $sql = "INSERT INTO `users` (Fullname, DOB, Nationality, State, LGA, Phonenumber, Address, Occupation, Placeofoccupation, Gender, Course1, Course2, Course3, Course4, Course5, Course6, Educationaldetails1, Educationaldetails2, Educationaldetails3, Educationaldetails4) VALUES ('$fullname', '$date', '$nationality', '$state', '$lga', '$phone', '$address', '$occupation', '$p_occupation', '$gender', '$course1', '$course2', '$course3', '$course4', '$course5', '$course6', '$edu_details1', '$edu_details2', '$edu_details3','$edu_details4')";
-                $result = mysqli_query($conn, $sql);
 
-                if ($result === TRUE) {
-
-                    echo "<script> alert('Success! You are successfully registered'); </script>";
-                    session_start();
-                    $_SESSION['fullname'] = $fullname;
-                    header('location:dashboard.php');
-                } else {
-                    echo "<script> alert('Sorry! User could not be added!'); </script>";
-                }
+                mysqli_stmt_bind_param($stmt, "ssssssssssssssssssss", $fullname, $date, $nationality, $state, $lga, $phone, $address, $occupation, $p_occupation, $gender, $course1, $course2, $course3, $course4, $course5, $course6, $edu_details1, $edu_details2, $edu_details3, $edu_details4);
+                mysqli_stmt_execute($stmt);
+                header("Location: dashboard.php?register=success");
+                exit();
             }
         }
     }
 }
+
+//         $sql = "SELECT * FROM `users` WHERE Fullname = '$fullname'";
+//         $result = mysqli_query($conn, $sql);
+
+//         if ($result) {
+
+//             $num = mysqli_num_rows($result);
+
+//             if ($num > 0) {
+
+//                 echo "<script> alert('Ohh no Sorry! Username or Email has already existed'); </script>";
+//             } else {
+//                 // var_dump($sql);
+//                 $sql = "INSERT INTO `users` (Fullname, DOB, Nationality, State, LGA, Phonenumber, Address, Occupation, Placeofoccupation, Gender, Course1, Course2, Course3, Course4, Course5, Course6, Educationaldetails1, Educationaldetails2, Educationaldetails3, Educationaldetails4) VALUES ('$fullname', '$date', '$nationality', '$state', '$lga', '$phone', '$address', '$occupation', '$p_occupation', '$gender', '$course1', '$course2', '$course3', '$course4', '$course5', '$course6', '$edu_details1', '$edu_details2', '$edu_details3','$edu_details4')";
+//                 $result = mysqli_query($conn, $sql);
+
+//                 if ($result === TRUE) {
+
+//                     echo "<script> alert('Success! You are successfully registered'); </script>";
+//                     session_start();
+//                     $_SESSION['fullname'] = $fullname;
+//                     header('location:dashboard.php');
+//                 } else {
+//                     echo "<script> alert('Sorry! User could not be added!'); </script>";
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 
@@ -160,7 +182,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div>
             <div id="form" class="tabcontent">
-                <form action="dashboard.php" method="post" enctype="multipart/form-data">
+                <form action="home.php" method="post" enctype="multipart/form-data">
                     <i>
                         <address>
                             No. 23 Albarka Plaza,Justice Dahiru Mustapha Avenue Farm Center Kano.<br>
@@ -182,7 +204,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div>
                             <p>
                                 <label for="name">FULL NAME:</label><br>
-                                <input type="text" name="fullname" id="fullname" size="35" required>
+                                <input type="text" name="fullname" id="fullname" size="35">
                             </p>
                         </div>
                         <!-- <div>

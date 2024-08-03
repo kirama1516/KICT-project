@@ -41,17 +41,17 @@ if ($conn->affected_rows) {
 
     try {
 
-           // Check if email is set
-        if (!isset($_POST['email']) || empty($_POST['email'])) {
-        throw new Exception('Email address is required');
-        }
+        //    // Check if email is set
+        // if (!isset($_POST['email']) || empty($_POST['email'])) {
+        // throw new Exception('Email address is required');
+        // }
         
-        $email = $_POST['email'];
+        // $email = $_POST['email'];
         
-        // Validate email address
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        throw new Exception('Invalid email address');
-        }
+        // // Validate email address
+        // if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // throw new Exception('Invalid email address');
+        // }
 
         $mail->send();
     } catch (Exception $e) {

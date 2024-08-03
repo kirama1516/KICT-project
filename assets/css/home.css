@@ -155,16 +155,16 @@ div.tab a:hover {background-color: #ddd;}
 
 /* Create an active/current tablink class */
 div.tab a:focus, .active {    
-    background-color:#555;
+    background-color:#080202f3;
 }
 
 /* Style the tab content */
 .tabcontent {
-    display: none;
+    /* display: none; */
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
-    /* margin-left: 18%; */
+    margin-left: -10%;
 }
 
 .tabcontent {

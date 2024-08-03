@@ -2,11 +2,10 @@
 
 include "./db/config.php";
 
-session_start();
-    if(!isset($_SESSION['fullname'])){
+    if(!isset($_SESSION['Fullname'])){
         header('location:home.php');
     }
-    $fullname = $_SESSION['fullname'];
+    $fullname = $_SESSION['Fullname'];
 
     $sql = "SELECT * FROM `users` WHERE Fullname = '$fullname'";
     
@@ -14,8 +13,6 @@ session_start();
     $row = $result->fetch_assoc();
 
     $fullname = $row["Fullname"];
-    // $email = $row["Email"];
-    // $file = $row['File'];
     $date = $row["DOB"];
     $nationality = $row["Nationality"];
     $state = $row["State"];
@@ -44,19 +41,11 @@ session_start();
 </head>
 
 <body>
-    <h1>Welcome
-        <!-- <?php echo $_SESSION['Username']; ?> -->
-    </h1>
-    <p>
-        <!-- <?php echo '<img src="' . $file . '" alt="No image file uploaded" style="max-width: 15%;">';?> -->
-    </p>
+
     <div class="view">
         <p>NAME:<br>
             <?php echo $fullname; ?>
         </p>
-        <!-- <p>EMAIL:<br>
-            <?php echo $email; ?>
-        </p> -->
         <p>DATE OF BIRTH:<br>
             <?php echo $date; ?>
         </p>
