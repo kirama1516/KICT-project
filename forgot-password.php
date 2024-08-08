@@ -1,7 +1,7 @@
 <?php
 
 include "./db/config.php";
-include "./mail/mailer.php";
+include "../kict-project/mail/mailer.php";
 
 if (isset($_POST['email'])) {
 $email = $_POST["email"];
