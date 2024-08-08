@@ -11,14 +11,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $password = $_POST['password'];
 
         if (empty($usermail) || empty($password)) {
+            
             header("Location: index.php?error=emptyfields");
             exit();
+
         } else {
+
             $sql =  "SELECT * FROM `sign_database` WHERE Username = ? OR Email = ?";
             $stmt = mysqli_stmt_init($conn);
+
             if (!mysqli_stmt_prepare($stmt, $sql)) {
+
                 header("Location: index.php?error=sqlerror");
                 exit();
+
             } else {
 
                 mysqli_stmt_bind_param($stmt, "ss", $usermail, $usermail);
@@ -26,13 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // mysqli_stmt_get_result($stmt);
 
                 $result = mysqli_stmt_get_result($stmt);
+
                 if ($row = mysqli_fetch_assoc($result)) {
 
                     $pwdCheck = password_verify($password, $row['Password']);
 
                     if ($pwdCheck == false) {
+
                         header("Location: index.php?error=wrongPassword");
                         exit();
+
                     } else if ($pwdCheck == true) {
 
                         $_SESSION['userId'] = $row['Id'];
@@ -40,16 +49,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         header("Location: home.php?login=success");
                         exit();
+
                     } else {
+
                         header("Location: index.php?error=wrongPassword");
                         exit();
+
                     }
                 } else {
+
                     header("Location: index.php?error=noUser");
                     exit();
+
                 }
             }
         }
+
     } else if (isset($_POST['signin'])) {
 
         $email = $_POST['email'];
@@ -63,59 +78,85 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $confirmpassword = $_POST['confirmpassword'];
 
         if (empty($username) || empty($email) || empty($photo) || empty($password) || empty($confirmpassword)) {
+
             header("Location: index.php?error=emptyfields&username=" . $username . "&email=" . $email);
             exit();
+
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+
             header("Location: index.php?error=invalidEmailUsername");
             exit();
+
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
             header("Location: index.php?error=invalidEmail&username=" . $username);
             exit();
+
         } else if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+
             header("Location: index.php?error=invalidUsername&email=" . $email);
             exit();
+
         } else if ($password !== $confirmpassword) {
+
             header("Location: index.php?error=passwordCheck&username=" . $username . "&email=" . $email);
             exit();
+
         } else {
 
             $sql = "SELECT Username FROM `sign_database` WHERE Username = ?";
             $stmt = mysqli_stmt_init($conn);
+
             if (!mysqli_stmt_prepare($stmt, $sql)) {
+
                 header("Location: index.php?error=sqlerror");
                 exit();
+
             } else {
+
                 mysqli_stmt_bind_param($stmt, "s", $username);
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_store_result($stmt);
                 $resultCheck = mysqli_stmt_num_rows($stmt);
+
                 if ($resultCheck > 0) {
+
                     header("Location: index.php?error=usertaken&email=" . $email);
                     exit();
+
                 } else {
 
                     $sql = "INSERT INTO `sign_database` (Email, Username, Photo, Password) VALUES (?, ?, ?, ?)";
                     $stmt = mysqli_stmt_init($conn);
+
                     if (!mysqli_stmt_prepare($stmt, $sql)) {
+
                         $_SESSION['Username'] = $username;
                         header("Location: index.php?error=sqlerror");
                         exit();
+
                     } else {
+
                         $hashPwd = password_hash($password, PASSWORD_DEFAULT);
 
                         mysqli_stmt_bind_param($stmt, "ssss", $email, $username, $photo, $hashPwd);
                         mysqli_stmt_execute($stmt);
                         header("Location: index.php?signin=success");
                         exit();
+
                     }
                 }
             }
         }
+
         mysqli_stmt_close($stmt);
         mysqli_close($conn);
+
     } else {
+
         header("Location: index.php?error=InvalidRequest");
         exit();
+
     }
     
     if (isset($_POST['token'])) {
@@ -139,11 +180,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $result->fetch_assoc();
 
     if ($user === null) {
+
         die("token not found");
+
     }
 
     if (strtotime($user["Reset_token_expires_at"]) <= time()) {
+
         die("token has expired");
+
     }
 
     if (isset($_POST['send'])) {
@@ -156,9 +201,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($password == $confirmpassword) {
 
         echo "<script> alert('Success! You are successfully signed up'); </script>";
+
     } else {
 
         echo "<script> alert('Incorrect! Password does not match'); </script>";
+
     }
 
         $sql = "UPDATE `sign_database`
@@ -176,6 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_execute($stmt);
 
         echo "<script> alert('Password update, You can now login.'); </script>";
+
     }
 }
 
