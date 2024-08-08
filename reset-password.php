@@ -1,8 +1,9 @@
 <?php
+
 include "./db/config.php";
 // include '/var/www/html/myshop/db/config.php';
 
-if (isset($_GET['token'])) {
+// if (isset($_GET['token'])) {
 
 $token = $_GET["token"];
 
@@ -29,7 +30,7 @@ if ($user === null) {
 if (strtotime($user["Reset_token_expires_at"]) <= time()) {
     die("token has expired"); 
 }
-}
+// }
 
 ?>
 
@@ -45,14 +46,14 @@ if (strtotime($user["Reset_token_expires_at"]) <= time()) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    <title>Forgot password</title>
+    <title>Reset password</title>
 </head>
 
 <body>
 
     <h1>Reset Password</h1>
 
-    <form action="index.php" method="post">
+    <form action="reset-password-process.php" method="post">
 
         <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
 

@@ -4,6 +4,7 @@ include "./db/config.php";
 include "../kict-project/mail/mailer.php";
 
 if (isset($_POST['email'])) {
+    
 $email = $_POST["email"];
 
 $token = bin2hex(random_bytes(16));
