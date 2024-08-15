@@ -1,9 +1,7 @@
 <?php
 
 include "./db/config.php";
-// include '/var/www/html/myshop/db/config.php';
 
-// if (isset($_GET['token'])) {
 
 $token = $_GET["token"];
 
@@ -30,7 +28,6 @@ if ($user === null) {
 if (strtotime($user["Reset_token_expires_at"]) <= time()) {
     die("token has expired"); 
 }
-// }
 
 ?>
 

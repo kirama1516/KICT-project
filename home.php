@@ -1,19 +1,21 @@
 <?php
 include "./db/config.php";
 
-if(isset($_SESSION['userId'])){
-    $sql =  "SELECT * FROM `sign_database` WHERE Id = ?";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: index.php?error=sqlerror");
-        exit();
-    } else {
-        mysqli_stmt_bind_param($stmt, "i", $_SESSION['userId']);
-        mysqli_stmt_execute($stmt);
+    if(isset($_SESSION['userId'])){
+
+        $sql =  "SELECT * FROM `sign_database` WHERE Id = ?";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?error=sqlerror");
+            exit();
+        } else {
+            mysqli_stmt_bind_param($stmt, "i", $_SESSION['userId']);
+            mysqli_stmt_execute($stmt);
 
         $result = mysqli_stmt_get_result($stmt);
         if ($row = mysqli_fetch_assoc($result)) {
-            $photo = $row['Photo'];
+            $image= $row['Image'];
          // echo "<script> alert('Success! You are logged in '); </script>";
         }          
     }
@@ -119,7 +121,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         </h1>
 
         <div class=" chip">
-            <?php echo '<img src="' . $photo . '" alt="No image file uploaded" width="96" height="96">'; ?>
+            <?php echo '<img src="' . $image . '" width="96" height="96">'; ?>
         </div>
 
         <!-- Use any element to open the sidenav -->
@@ -182,7 +184,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div>
             <div id="form" class="tabcontent">
-                <form action="home.php" method="post" enctype="multipart/form-data">
+                <form action="home.php" method="post">
                     <i>
                         <address>
                             No. 23 Albarka Plaza,Justice Dahiru Mustapha Avenue Farm Center Kano.<br>
@@ -207,18 +209,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input type="text" name="fullname" id="fullname" size="35">
                             </p>
                         </div>
-                        <!-- <div>
-                        <p>
-                            <label for="name">USER NAME:</label><br>
-                            <input type="text" name="username" id="fullname" size="35" required>
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <label for="email">EMAIL:</label><br>
-                            <input type="email" name="email" size="35" required>
-                        </p>
-                    </div> -->
                         <div>
                             <p>
                                 <label for="date">DATE OF BIRTH:</label><br>
@@ -243,12 +233,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input type="text" name="lga" id="lga" size="35">
                             </p>
                         </div>
-                        <!-- <div>
-                        <p>
-                            <label id="files" for="file">Upload image</label><br>
-                            <input type="file" name="image" id="imageInput" accept="image/*">
-                        </p>
-                    </div> -->
                         <div>
                             <p>
                                 <label for="phone">PHONE NO.:</label><br>
@@ -261,18 +245,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <textarea id="address" name="address"></textarea>
                             </p>
                         </div>
-                        <!-- <div>
-                        <p>
-                            <label for="password">PASSWORD:</label><br>
-                            <input type="password" name="password" id="password" size="35" required>
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <label for="confirmpassword">CONFIRM PASSWORD:</label><br>
-                            <input type="password" name="confirmpassword" id="confirmpassword" size="35" required>
-                        </p>
-                    </div> -->
                         <div>
                             <p>
                                 <label for="occupation">OCCUPATION:</label><br>

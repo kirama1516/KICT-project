@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     } else if ($pwdCheck == true) {
 
                         $_SESSION['userId'] = $row['Id'];
-                        $_SESSION['userName'] = $row['Username'];
+                        // $_SESSION['userName'] = $row['Username'];
 
                         header("Location: home.php?login=success");
                         exit();
@@ -71,13 +71,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $username = $_POST['username'];
 
-        $photo = 'upload/' . $_FILES['image']['name'];
+        $image = 'upload/' . $_FILES['image']['name'];
 
         $password = $_POST['password'];
 
         $confirmpassword = $_POST['confirmpassword'];
 
-        if (empty($username) || empty($email) || empty($photo) || empty($password) || empty($confirmpassword)) {
+        if (empty($username) || empty($email) || empty($password) || empty($confirmpassword) || empty($image)) {
 
             header("Location: index.php?error=emptyfields&username=" . $username . "&email=" . $email);
             exit();
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 } else {
 
-                    $sql = "INSERT INTO `sign_database` (Email, Username, Photo, Password) VALUES (?, ?, ?, ?)";
+                    $sql = "INSERT INTO `sign_database` (Email, Username, Password, Image) VALUES (?, ?, ?, ?)";
                     $stmt = mysqli_stmt_init($conn);
 
                     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         $hashPwd = password_hash($password, PASSWORD_DEFAULT);
 
-                        mysqli_stmt_bind_param($stmt, "ssss", $email, $username, $photo, $hashPwd);
+                        mysqli_stmt_bind_param($stmt, "ssss", $email, $username, $hashPwd, $image);
                         mysqli_stmt_execute($stmt);
                         header("Location: index.php?signin=success");
                         exit();

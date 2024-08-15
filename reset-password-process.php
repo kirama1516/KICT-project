@@ -1,7 +1,7 @@
 <?php
 
 // include "./db/config.php";
-include '/var/www/html/myshop/db/config.php';
+include '/var/www/html/kict-project/db/config.php';
 
     $token = $_POST["token"];
 
@@ -38,33 +38,34 @@ include '/var/www/html/myshop/db/config.php';
         $password = $_POST['password'];
 
         $confirmpassword = $_POST['confirmpassword'];
+
+            if ($password !== $confirmpassword) {
+
+                header("Location: reset-password.php?error=passwordCheck");
+                exit();
+
+            } else {
+
+                $sql = "UPDATE `sign_database`
+                        SET Password = ?,
+                            Reset_token_hash = NULL,
+                            Reset_token_expires_at = NULL
+                        WHERE Id = ?";
+
+                $stmt = mysqli_stmt_init($conn);
+                mysqli_stmt_prepare($stmt, $sql);
+
+                $hashPwd = password_hash($password, PASSWORD_DEFAULT);
+
+                mysqli_stmt_bind_param($stmt, "si", $hashPwd, $user["Id"]);
+                mysqli_stmt_execute($stmt);
+                header("Location: index.php?passwordUpdate=you can now login");
+                exit();
+
+            }
+
+                // echo "<script> alert('Password update, You can now login.'); </script>";
+
     }
-
-    if ($password == $confirmpassword) {
-
-        echo "<script> alert('Success! You are successfully signed up'); </script>";
-
-    } else {
-
-        echo "<script> alert('Incorrect! Password does not match'); </script>";
-
-    }
-
-        $sql = "UPDATE `sign_database`
-                SET Password = ?,
-                    Reset_token_hash = NULL,
-                    Reset_token_expires_at = NULL
-                WHERE Id = ?";
-
-        $stmt = mysqli_stmt_init($conn);
-
-        mysqli_stmt_prepare($stmt, $sql);
-
-        mysqli_stmt_bind_param($stmt, "ss", $password, $user["Id"]);
-
-        mysqli_stmt_execute($stmt);
-
-        echo "<script> alert('Password update, You can now login.'); </script>";
-
 
 ?>

@@ -16,8 +16,8 @@ $client->setRedirectUri($redirectURL);
 $client->addScope('email');
 $client->addScope('profile');
 
-// session_start();
 // Database connection details
+session_start();
 $servername = "localhost";
 $username = "admin";
 $password = "6680Afa.";
