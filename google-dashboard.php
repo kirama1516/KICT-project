@@ -2,47 +2,47 @@
 
 include './db/config.php';
 
-session_start();
-    //         use GuzzleHttp\Client;
-                
-    // // Specify the path to the downloaded CA bundle file
-    // $caBundlePath = 'C:\php-8.2.13\curl_files';
+//     //         use GuzzleHttp\Client;
+//     // // Specify the path to the downloaded CA bundle file
+//     // $caBundlePath = 'C:\php-8.2.13\curl_files';
 
-    // // Create a GuzzleHttp client with the specified CA bundle path
-    // $client = new Client(['verify' => $caBundlePath]);
+//     // // Create a GuzzleHttp client with the specified CA bundle path
+//     // $client = new Client(['verify' => $caBundlePath]);
 
-    // $client = new GuzzleHttp\Client([
-    //     'proxy' => 'http://192.168.137.214:80',
-    //     'timeout' => 300,
-    // ]);
+//     // $client = new GuzzleHttp\Client([
+//     //     'proxy' => 'http://192.168.137.214:80',
+//     //     'timeout' => 300,
+//     // ]);
 
-     // Include the Composer autoloader
-require '/var/www/html/kict-project/vendor/autoload.php';
+//      // Include the Composer autoloader
+// require '/var/www/html/kict-project/vendor/autoload.php';
 
-use GuzzleHttp\Client;
+// use GuzzleHttp\Client;
 
-// Create a new Guzzle client instance
-$client = new Client();
+// // Create a new Guzzle client instance
+// $client = new Client();
 
-// Specify the URL you want to send the request to
-$url = 'http://localhost/kict-project/google-dashboard.php';
+// // Specify the URL you want to send the request to
+// $url = 'http://localhost/kict-project/google-dashboard.php';
 
-try {
-    // Send a GET request to the specified URL
-    $response = $client->get($url);
+// try {
+//     // Send a GET request to the specified URL
+//     $response = $client->get($url);
 
-    // Get the response body as a string
-    $body = $response->getBody()->getContents();
+//     // Get the response body as a string
+//     $body = $response->getBody()->getContents();
 
-    // Output the response body
-    echo $body;
-} catch (GuzzleHttp\Exception\GuzzleException $e) {
-    // Handle exceptions such as connection errors or server errors
-    echo 'Error: ' . $e->getMessage();
-}
+//     // Output the response body
+//     echo $body;
+// } catch (GuzzleHttp\Exception\GuzzleException $e) {
+//     // Handle exceptions such as connection errors or server errors
+//     echo 'Error: ' . $e->getMessage();
+// }
 
- //    authenticate code from google oauth flow
- if (isset($_GET['code'])) {
+
+
+//    authenticate code from google oauth flow
+if (isset($_GET['code'])) {
     $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
     $client->setAccessToken($token['access_token']);
 
@@ -50,30 +50,28 @@ try {
     $google_oauth = new Google_Service_Oauth2($client);
     $google_account_info = $google_oauth->userinfo->get(); // Corrected method name
     $userInfo = [
-        'Email' => $google_account_info->getEmail(), // Use getEmail() method
-        'Username' => $google_account_info->getName(), // Use getName() method
-        'Password' => $google_account_info->getGender(), // Use getGender() method
-        'File' => $google_account_info->getPicture(), // Use getPicture() method
+        // 'Username' => $google_account_info->getName(), // Use getName() method
+        'Image' => $google_account_info->getPicture(), // Use getPicture() method
         'VerifiedEmail' => $google_account_info->getVerifiedEmail(), // Use getVerifiedEmail() method
         'Token' => $google_account_info->getId(), // Use getId() method
     ];
-    
+
 
     // checking if user is already exist in database 
     $sql = "SELECT * FROM `sign_database` WHERE Email = '{$userInfo['email']}'";
     $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0 ) {
-    // User is exist
-    $userInfo = mysqli_fetch_assoc($result);
-    $token = $userInfo['token'];
+    if (mysqli_num_rows($result) > 0) {
+        // User is exist
+        $userInfo = mysqli_fetch_assoc($result);
+        $token = $userInfo['Token'];
     } else {
         // User is not exist
-        $sql = "INSERT INTO `sign_database` (Email, Username, Password, File, VerifiedEmail, Token) VALUES ('{$userInfo['Email']}', 
-        '{$userInfo['Username']}', '{$userInfo['Password']}', '{$userInfo['File']}', '{$userInfo['VerifiedEmail']}',
+        $sql = "INSERT INTO `sign_database` (Email, Username, Password, Image, VerifiedEmail, Token) VALUES ('{$userInfo['Email']}', 
+        '{$userInfo['Username']}', '{$userInfo['Password']}', '{$userInfo['Image']}', '{$userInfo['VerifiedEmail']}',
         '{$userInfo['Token']}'";
         $result = mysqli_query($conn, $sql);
         if ($result) {
-            $token = $userInfo['token'];
+            $token = $userInfo['Token'];
         } else {
             echo "User is not created";
             die();
@@ -91,9 +89,9 @@ try {
     // checking if user is already exist in database 
     $sql = "SELECT * FROM `sign_database` WHERE Token = '{$_SESSION['user_token']}'";
     $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0 ) {
-    // User is exist
-    $userInfo = mysqli_fetch_assoc($result);
+    if (mysqli_num_rows($result) > 0) {
+        // User is exist
+        $userInfo = mysqli_fetch_assoc($result);
     }
 }
 

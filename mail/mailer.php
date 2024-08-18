@@ -24,5 +24,3 @@ $mail->isHTML(true);
 $mail->CharSet = 'UTF-8';
 
 return $mail;
-
-?>

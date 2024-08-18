@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // Include the Google API client library
 require_once 'vendor/autoload.php';
@@ -17,7 +18,6 @@ $client->addScope('email');
 $client->addScope('profile');
 
 // Database connection details
-session_start();
 $servername = "localhost";
 $username = "admin";
 $password = "6680Afa.";
