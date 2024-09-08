@@ -6,8 +6,9 @@ require_once 'vendor/autoload.php';
 
 // init config
 $clientID = '971308071057-qu8a0np2rlocrdl1l5k80pep4gilifte.apps.googleusercontent.com';
-$clientSecret = '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';
-$redirectURL = 'http://localhost/kict-project/google-dashboard.php';
+$clientSecret = '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';
+$redirectURL = 'http://localhost/kict-project/google-login.php';
+
 
 // Set up the Google client
 $client = new Google_Client();
