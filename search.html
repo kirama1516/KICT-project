@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kict Catalog Search</title>
+</head>
+<body>
+    <h1>Kict Catalog Search</h1>
+    <form action="results.php" method="post">
+        Choose Search Type:<br />
+        <select name="searchtype">
+            <option value="modelNum">model number</option>
+            <option value="title">title</option>
+            <option value="item">item name</option>
+            <option value="cpu">processer</option>
+            <option value="gen">generation</option>
+            <option value="ram">ram</option>
+            <option value="ssd">hard drive</option>
+            <option value="graphics">graphics</option>
+        </select>
+        <br />
+        Enter Search Term:<br />
+        <input name="searchterm" type=”"text" size="40"/>
+        <br />
+        <input type="button" name="submit" value="Search" style="margin-left: 20px; size: 10;"/>
+    </form>
+</body>
+</html>

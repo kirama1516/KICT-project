@@ -1,0 +1,296 @@
+h1{
+    color: white;
+    /* text-align: center; */
+    margin-top: -30px;
+    font-size: 3em;
+    user-select: none;
+    /* text-shadow: 0 0 5px #fff, 0 0 10px #fff,
+    0 0 15px #ff852e, 0 0 15px hsl(25, 100%, 59%), 0 0 25px #ff852e, 0 0 30px #ff852e; */
+    /* mix-blend-mode: overlay; */
+    margin-left: 60px;
+}
+sup{
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 30px;
+}
+h2{
+    color: white;
+    /* text-align: center; */
+    /* font-size: 50px; */
+    /* mix-blend-mode: color-dodge; */
+    margin-left: 40px;
+}
+address{
+    color: white;
+    /* text-align: center; */
+    font-size: 15px;
+    font-weight: 600;
+    margin-left: 40px;
+    /* mix-blend-mode: color-dodge; */
+}
+b{
+    font-family: Verdana, 
+    Geneva, Tahoma, sans-serif;
+    font-size: 70px;
+    color:  white;
+    margin-top: 10px;
+    text-shadow: 8px 6px black;
+    font-weight: 900;
+    align-items: center;
+}
+body{
+    /* background: url(myimage/pin7.jpg) no-repeat; */
+    background-color: black;
+    display: flex;
+    /* justify-content: center; */
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    position: relative;
+}
+.glass{
+    position: relative;
+    width: 400px;
+    text-align: center;
+    height: 450px;
+    background: transparent;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 32px;
+    display: flex;
+    overflow: hidden;
+    margin-left: 120px;
+    margin-top: 60px;
+    transition: height .6s ease;
+}
+
+.glass.active {
+    height: 570px;
+}
+
+.glass .form-box{
+    width: 100%;
+    padding: 20px;
+}
+
+.glass .form-box.login{
+    transition: transform .18s ease;
+    transform: translateX(0);
+}
+
+.glass.active .form-box.login{
+    transition: none;
+    transform: translateX(-400px);
+}
+
+.glass .form-box.register{
+    position: absolute;
+    transition: none;
+    transform: translateX(400px);
+}
+
+.glass.active .form-box.register{
+    transition: transform .18s ease;
+    transform: translateX(-10px);
+}
+
+/* .password-icon{
+    position: absolute;
+    width: 24px;
+    cursor: pointer;
+} */
+
+.input-box{
+    position: relative;
+    width: 320px;
+    height: 50px;
+    border-bottom: 2px solid white;
+    margin: 15px 15px;
+}
+
+.input-box label{
+    position: absolute;
+    color: white;
+    transform: 5s;
+    transform: translateY(-50);
+    top: 50%;
+    left: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    pointer-events: none;
+    transition: .5s;
+}
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -2px;
+}
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: white;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+    margin-top: 5%;
+}
+.input-box .icon{
+    position: absolute;
+    right: 5px;
+    font-size: 1.2em;
+    color: white;
+    line-height: 67px;
+}
+
+.input-image{
+    position: relative;
+    width: 320px;
+    height: 50px;
+    margin: 15px 0;
+}
+.input-image label{
+    position: absolute;
+    color: white;
+    transform: 5s;
+    transform: translateY(-50);
+    top: 50%;
+    left: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    pointer-events: none;
+    transition: .5s;
+}
+.input-image input:focus~label,
+.input-image input:valid~label {
+    top: -2px;
+}
+.input-image input{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: white;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+    margin-top: 5%;
+}
+.input-image .icon{
+    position: absolute;
+    right: 5px;
+    font-size: 1.2em;
+    color: white;
+    line-height: 67px;
+}
+.remember{
+    font-size: 1em;
+    color: white;
+    font-weight: 600;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.remember label input{
+    color: white;
+    margin-right: 3px;
+    font-size: 1.4em;
+}
+.remember a{
+    color: white;
+    text-decoration: none;
+}
+.remember a:hover{
+    text-decoration: underline;
+}
+.rcorners{
+    align-items: center;
+    background-color:  transparent;
+    font-size: 1.2em;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    margin: -5px ;
+    width: 80%;
+    height: 45px;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600; 
+    border: 2px solid white;  
+}
+.rcorners:hover{
+    background-color: white;
+    transition: .5s;
+    color: black;
+    border: none;
+    box-shadow: 5px 5px 5px 5px black;
+}
+.rcorner{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.2em;
+    height: 55px;
+    width: 60%;
+    right: -12%;
+    margin: 7%;
+}
+.rcorner a{
+    text-decoration: none;
+    margin-left: 90px;
+    color: black;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+/* .rcorner p{
+    color: white;
+    font-size: 18px;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+} */
+/* .rcorner a p:hover{
+    text-decoration: underline;
+    color: #162938;
+} */
+.login-register {
+    font-size: .9em;
+    text-align: center;
+    margin: 5px 0 10px;
+    font-weight: 500;
+    color: white;
+}
+
+.login-register p a {
+    color: rgb(236, 176, 176);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.login-register p a:hover {
+    text-decoration: underline;
+}
+.buttons{
+    background-color: white;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    margin: 5px;
+    width: 80%;
+    height: 55px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+}
+.buttons:hover{
+    box-shadow: 5px 5px 10px 10px black;
+}
